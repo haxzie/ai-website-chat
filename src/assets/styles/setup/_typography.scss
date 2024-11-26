@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700@300..700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+@mixin font($font-family, $font-file) {
+  @font-face {
+    font-family: $font-family;
+    src: url($font-file+'.ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+
+// @include font('Inter', '../fonts/inter/inter');
+
+body {
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  font-weight: 400px;
+  line-height: 1.5rem;
+  // font-family: 'Inter', sans-serif;
+  // font-family: "Noto Sans", sans-serif;
+  font-family: "Inter", sans-serif;
+  color: var(--color-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  span,
+  p,
+  pre,
+  label {
+    padding: 0;
+    margin: 0;
+    font-weight: 400;
+    color: var(--color-font);
+    font-family: "Inter", sans-serif;
+  }
+
+  a {
+    text-decoration: none;
+    outline: none;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+.text-xs {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+  font-weight: var(--font-weight-xs);
+}
+
+.text-s {
+  font-size: var(--font-size-s);
+  line-height: var(--line-height-s);
+  font-weight: var(--font-weight-s);
+}
+
+.text-l {
+  font-size: var(--font-size-l-medium);
+  line-height: var(--line-height-l-medium);
+  font-weight: var(--font-weight-l-medium);
+}
