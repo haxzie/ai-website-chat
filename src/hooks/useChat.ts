@@ -32,7 +32,7 @@ export default function useChat() {
     });
     // generate a system prompt
     const systemPrompt = await generateSystemPrompt();
-    console.log("systemPrompt", systemPrompt);
+
     // create a text stream
     const { textStream } = streamText({
       model: ChatGPT("gpt-3.5-turbo"),
