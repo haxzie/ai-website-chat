@@ -4,7 +4,7 @@ import AIIcon from "./icons/AIIcon";
 
 export default function WelcomeView() {
   return (
-    <div className={styles.welcomeView}>
+    <div className={styles.welcomeView} data-testid="welcomeView">
       <div className={styles.icon}>
         <AIIcon size={34} />
       </div>

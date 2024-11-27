@@ -5,7 +5,7 @@ import ChatBox from "./ChatBox";
 
 function ChatScreen() {
   return (
-    <div className={styles.chatScreen}>
+    <div className={styles.chatScreen} data-testid="chatScreen">
       <div className={styles.chatMessages}>
         <ChatMessages />
       </div>

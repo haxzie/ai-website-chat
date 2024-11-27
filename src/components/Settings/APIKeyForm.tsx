@@ -22,7 +22,7 @@ export default function APIKeyForm({
       e.preventDefault();
       if (!openAIAPIKey.trim()) return;
       saveApiKey(openAIAPIKey.trim());
-      
+
       // Call the onKeyChange callback if it is provided
       if (onKeyChange) {
         onKeyChange();
@@ -31,20 +31,27 @@ export default function APIKeyForm({
     [openAIAPIKey, saveApiKey]
   );
   return (
-    <div className={styles.apiKeyForm}>
+    <div className={styles.apiKeyForm} data-testid="apiKeyForm">
       <div className={styles.texts}>
         <h2>Enter your OpenAI API Key</h2>
         <p>The widget uses OpenAI to analyse the content</p>
       </div>
       <form className={styles.form} onSubmit={handleSaveApiKey}>
         <input
+          data-testid="apiKeyInput"
           type="password"
           placeholder="**************************************"
           className={styles.apiKeyInput}
           value={openAIAPIKey}
           onChange={(e) => setOpenAIAPIKey(e.target.value)}
         />
-        <button className={styles.cta}>Save API Key</button>
+        <button
+          data-testid="apiKeySaveButton"
+          className={styles.cta}
+          disabled={!openAIAPIKey.trim()}
+        >
+          Save API Key
+        </button>
       </form>
     </div>
   );

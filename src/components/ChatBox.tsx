@@ -52,6 +52,7 @@ function ChatBox() {
         error && styles.error,
       ].join(" ")}
       onSubmit={handleOnSubmit}
+      data-testid="chatBox"
     >
       <input
         className={styles.ChatBoxInput}

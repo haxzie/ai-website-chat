@@ -15,7 +15,7 @@ function ChatMessages() {
   return messagesArray.length === 0 ? (
     <WelcomeView />
   ) : (
-    <div className={styles.chatMessages}>
+    <div className={styles.chatMessages} data-testid="chatMessages">
       {messagesArray.map((message, index) => (
         <MessageView
           key={`message-${message.role}-${index}`}

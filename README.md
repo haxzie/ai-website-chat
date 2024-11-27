@@ -33,6 +33,7 @@ src
 ├── pages              # Extension pages (popup, widget, etc.)
 ├── store              # State management (Zustand)
 └── utils              # Utility functions
+tests                  # All the tests
 ```
 
 ---
@@ -78,6 +79,18 @@ src
   Packages the extension into a `.zip` file for deployment.
 
 ---
+
+### Testing
+- **Create a build**
+  ```bash
+  npm run build
+  ```
+  Compiles TypeScript and bundles the extension for production.
+- **Run Vitest**
+  ```bash
+  npm run test
+  ```
+  Runs vitest test runner
 
 ## Usage
 

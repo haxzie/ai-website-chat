@@ -5,7 +5,7 @@ import { memo } from "react";
 
 function APIKeyInputScreen() {
   return (
-    <div className={styles.apiKeyInputScreen}>
+    <div className={styles.apiKeyInputScreen}  data-testid="apiInputScreen">
       <div className={styles.icon}>
         <OpenAIIcon size={34} />
       </div>

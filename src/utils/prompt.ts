@@ -2,7 +2,7 @@ import { Readability } from "@mozilla/readability";
 /**
  * Gets the current page context as markdown
  */
-async function getPageContext(): Promise<string> {
+export async function getPageContext(): Promise<string> {
   const chromeTab = await chrome.tabs.query({
     active: true,
     currentWindow: true,
@@ -11,59 +11,44 @@ async function getPageContext(): Promise<string> {
   // get the current tab
   const tab = chromeTab[0];
   const tabId = tab.id as number;
+  const currentURL = tab.url as string;
+  let pageContext = "";
 
   // get the current tab content
   const [tabContent] = await chrome.scripting.executeScript({
     target: { tabId },
-    func: () => document.documentElement.outerHTML.toString(),
+    world: "MAIN",
+    func: () => {
+      const main = document.querySelector("main");
+      return {
+        doc: document.documentElement.outerHTML,
+        text: main ? main.innerText : "",
+      };
+    },
   });
 
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(
-    tabContent.result?.toString() || "",
-    "text/html"
-  );
+  const { doc, text } = tabContent.result as { doc: string; text: string };
 
-  const currentURL = tab.url as string;
-
-  let pageContext = "";
-  // get the article content using the Mozilla Readability library
-
-  const article = new Readability(doc).parse();
-
-  if (article) {
-    const { title, lang, textContent, excerpt, siteName } = article;
-
-    pageContext = `Title: ${title}
-    Site: ${siteName}
-    Language: ${lang}
-    Excerpt: ${excerpt}
-    Content: ${textContent}
-    `;
-  } else {
-    const pageContent = doc.querySelector("body") as HTMLElement;
-    // remove all styles
-    pageContent.querySelectorAll("style").forEach((style) => style.remove());
-    // remove all img tags
-    pageContent.querySelectorAll("img").forEach((img) => img.remove());
-    // remove all the video tags
-    pageContent.querySelectorAll("video").forEach((video) => video.remove());
-    // remove all script tags
-    pageContent.querySelectorAll("script").forEach((script) => script.remove());
-    // remove all nav tags
-    pageContent.querySelectorAll("nav").forEach((nav) => nav.remove());
-    // remove all footer tags
-    pageContent.querySelectorAll("footer").forEach((footer) => footer.remove());
-    // Remove the widget <iframe> by ID
-    const iframe: Element | null = pageContent.querySelector(
-      "iframe#chat-with-url-widget"
-    );
-    if (iframe) {
-      iframe.remove();
-    }
-
+  if (text) {
     // raw dogging the text content
-    pageContext = pageContent.textContent || "";
+    pageContext = text || "";
+  } else {
+    // get the article content using the Mozilla Readability library
+    const parser = new DOMParser();
+    const parsedDoc = parser.parseFromString(doc.toString(), "text/html");
+    const article = new Readability(parsedDoc).parse();
+    if (article && article.textContent) {
+      const { title, lang, textContent, excerpt, siteName } = article;
+
+      pageContext = `Title: ${title}
+      Site: ${siteName}
+      Language: ${lang}
+      Excerpt: ${excerpt}
+      Content: ${textContent}
+      `;
+    } else {
+      throw new Error("Could not extract page content");
+    }
   }
 
   return `Current URL: ${currentURL}
