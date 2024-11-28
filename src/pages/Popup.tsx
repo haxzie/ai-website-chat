@@ -21,6 +21,9 @@ export default function Popup() {
       <button className={styles.cta} onClick={injectScript}>
         Chat With Website
       </button>
+      <div className={styles.helpText}>
+        ⌥ + C to open chat
+      </div>
     </div>
   );
 }

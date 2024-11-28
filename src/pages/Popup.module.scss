@@ -56,6 +56,11 @@
     }
   }
 
+  .helpText {
+    font-size: var(--font-size-s);
+    color: var(--color-font-light);
+  }
+
   @keyframes slideUp {
     0% {
       transform: translateY(10px);
