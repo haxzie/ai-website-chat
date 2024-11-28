@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { setupChatWidget } from "../src/content-script";
+import { setupChatWidget } from "../src/utils/widgetControl";
 import { CHAT_WIDGET_ID } from "../src/utils/constants";
 
 function rgbToHex(rgb: string): string {
