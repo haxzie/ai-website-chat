@@ -7,7 +7,7 @@ export function setupChatWidget() {
   // Create the iframe
   const iframe = document.createElement("iframe");
   iframe.id = CHAT_WIDGET_ID;
-  iframe.src = ""; // Set the src to the chat widget URL
+  iframe.src = chrome.runtime.getURL("src/widget.html"); // Load the chat page
   iframe.draggable = true; // set draggable to true
   iframe.style.display = "none";
   iframe.style.position = "fixed";
@@ -72,26 +72,13 @@ export function setupChatWidget() {
 }
 
 /**
- * Makes the widget visible on the page
+ * Makes the widget visible on the page - This is executed within the browser tab
  * @param widgetId string
  */
-export function setWidgetToVisible(widgetId: string) {
+export function setWidgetToVisibility(widgetId: string, visibile: boolean) {
   const iframe = document.getElementById(widgetId) as HTMLIFrameElement;
   if (iframe) {
-    // Create the iframe
-    iframe.src = chrome.runtime.getURL("src/widget.html"); // Load the chat page
-
-    iframe.id = widgetId;
-    iframe.style.position = "fixed";
-    iframe.style.bottom = "10px";
-    iframe.style.right = "10px";
-    iframe.style.width = "400px";
-    iframe.style.height = "600px";
-    iframe.style.border = "none";
-    iframe.style.zIndex = "9999";
-    // iframe.style.backgroundColor = "transparent";
-    iframe.style.borderRadius = "10px";
-    iframe.style.display = "block";
+    iframe.style.display = visibile ? "block" : "none";
   }
 }
 
@@ -99,7 +86,10 @@ export function setupTriggers() {
   // allow the chat widget to be toggled by alt + c or option + c
   document.addEventListener("keydown", (e) => {
     if (e.altKey && e.code === "KeyC") {
-      setWidgetToVisible(CHAT_WIDGET_ID);
+      setWidgetToVisibility(CHAT_WIDGET_ID, true);
+    }
+    if (e.key === "Escape") {
+      setWidgetToVisibility(CHAT_WIDGET_ID, false);
     }
   });
 }
@@ -115,8 +105,8 @@ export const injectChatWidget = async () => {
     // inject the script to the current tab
     chrome.scripting.executeScript({
       target: { tabId: currentTab.id },
-      func: setWidgetToVisible,
-      args: [CHAT_WIDGET_ID],
+      func: setWidgetToVisibility,
+      args: [CHAT_WIDGET_ID, true],
     });
   }
 };
