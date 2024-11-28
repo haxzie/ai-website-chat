@@ -1,3 +1,3 @@
 import { zip } from "zip-a-folder";
 
-await zip("dist", "extension.zip");
+await zip("dist", "chat_with_url.zip");

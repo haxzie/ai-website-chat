@@ -6,7 +6,8 @@
     "32": "icon/32.png",
     "48": "icon/48.png",
     "96": "icon/96.png",
-    "128": "icon/128.png"
+    "128": "icon/128.png",
+    "512": "icon/512.png"
   },
   "{{chrome}}.action": {
     "default_popup": "src/popup.html"

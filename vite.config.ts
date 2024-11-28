@@ -21,5 +21,8 @@ export default defineConfig({
       manifest: generateManifest,
       additionalInputs: ["src/widget.html"],
     }),
-  ]
+  ],
+  build: {
+    emptyOutDir: true,
+  }
 });
