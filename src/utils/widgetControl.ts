@@ -71,6 +71,10 @@ export function setupChatWidget() {
   });
 }
 
+/**
+ * Makes the widget visible on the page
+ * @param widgetId string
+ */
 export function setWidgetToVisible(widgetId: string) {
   const iframe = document.getElementById(widgetId) as HTMLIFrameElement;
   if (iframe) {
