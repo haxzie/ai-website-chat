@@ -14,16 +14,16 @@
   "{{firefox}}.browser_action": {
     "default_popup": "src/popup.html"
   },
+  "{{chrome}}.content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content-script.ts"]
+    }
+  ],
   "web_accessible_resources": [
     {
       "resources": ["src/widget.html"],
       "matches": ["<all_urls>"]
-    }
-  ],
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["src/content-script.ts"]
     }
   ],
   "background": {

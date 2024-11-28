@@ -4,6 +4,7 @@ export function setupChatWidget() {
   // Create the iframe
   const iframe = document.createElement("iframe");
   iframe.id = CHAT_WIDGET_ID;
+  iframe.src = ""; // Set the src to the chat widget URL
   iframe.draggable = true; // set draggable to true
   iframe.style.display = "none";
   iframe.style.position = "fixed";
